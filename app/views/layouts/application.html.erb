@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rapid Response - Conferencing and Broadcasting Kit</title>
+  <%= stylesheet_link_tag    '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <i class="fa fa-plus"></i>
+      <h1> Rapid Response Kit </h1>
+      <p>Instantly communicate with all of your volunteers.</p>
+    </div>
+    <%= yield %>
+  </div>
+
+  <footer>
+    Made with <i class="fa fa-heart"></i> by your pals
+    <a href="http://www.twilio.com">@twilio</a>
+  </footer>
+</body>
+</html>
