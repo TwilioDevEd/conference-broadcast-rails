@@ -1,8 +1,10 @@
 require 'twilio-ruby'
 require 'sanitize'
+require 'csv'
 
 
 class TwilioController < ApplicationController
+  before_action :set_client_and_number, only: [:start_call_record, :broadcast_send, :fetch_recordings]
 
   # GET /conference
   def conference
@@ -46,10 +48,77 @@ class TwilioController < ApplicationController
     render xml: twiml.to_xml
   end
 
+  # POST /broadcast/record
+  def broadcast_record
+    twiml = Twilio::TwiML::Response.new do |r|
+      r.Say "Please record your message after the beep. Press star to end your recording."
+      r.Record finishOnKey: "*"
+    end
+    render xml: twiml.to_xml
+  end
+
+  # POST /broadcast/record
+  def broadcast_send
+    numbers = CSV.parse(params[:numbers])
+    recording = params[:recording_url]
+    url = request.base_url + '/broadcast/play?recording_url=' + recording
+
+    numbers.each do |number|
+      @client.account.calls.create(
+        from: @twilio_number,
+        to: number,
+        url: url
+      )
+    end
+  end
+
+  # POST /broadcast/play
+  def broadcast_play
+    recording_url = params[:recording_url]
+
+    twiml = Twilio::TwiML::Response.new do |r|
+      r.Play recording_url
+    end
+    render xml: twiml.to_xml
+  end
+
+  # GET /broadcast
+  def broadcast
+  end
+
+  # POST /call_recording
+  def start_call_record
+    phone_number = params[:phone_number]
+    puts request.base_url + '/broadcast/record'
+
+    @client.account.calls.create(
+      from: @twilio_number,
+      to: phone_number,
+      url: request.base_url + '/broadcast/record'
+    )
+    render status: :accepted
+  end
+
+  # GET /fetch_recordings
+  def fetch_recordings
+    @recordings = []
+
+    @recs = @client.recordings.list().each do |recording|
+      result = {
+        :url => recording.mp3,
+        :date => recording.date_created
+      }
+      @recordings << result
+    end
+
+    render json: @recordings
+  end
+
   private
 
-  def listener_twiml
-    
-    return response
+  def set_client_and_number
+    @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+    @twilio_number = ENV['TWILIO_NUMBER']
   end
+
 end

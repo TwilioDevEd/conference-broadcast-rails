@@ -13,7 +13,7 @@ To run this locally on your machine:
 
 1) Grab latest source
 <pre>
-git clone git://github.com/TwilioDevEd/ivr-recording-rails.git 
+git clone git://github.com/TwilioDevEd/conference-broadcast-rails.git 
 </pre>
 
 2) Navigate to folder and run

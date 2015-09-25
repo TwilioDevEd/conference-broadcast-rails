@@ -20,26 +20,13 @@ html {
 }
 
 body {
-    font-family: 'Signika', sans-serif;
+    
     background:#e22228;
     color:white;
 }
 
 *, *:before, *:after {
   box-sizing:inherit;
-}
-
-.hero {
-  text-align: center;
-}
-
-.hero h1 {
-  display: inline-block;
-  vertical-align: text-bottom;
-  line-height: 60px;
-  margin-left: 20px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 .fa-plus:before {
@@ -52,12 +39,4 @@ footer {
   margin-top:20px;
   padding-top:20px;
   text-align:center;
-}
-.btn-square {
-  border-radius: 0px;
-  background:white;
-  display: block;
-  width: 240px;
-  margin: 10px auto;
-  box-shadow: -5px 5px 0px #981e20;
 }

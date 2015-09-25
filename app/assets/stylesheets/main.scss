@@ -1,3 +1,87 @@
 // Place all the styles related to the Main controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@mixin transition($transition...) {
+    -moz-transition:    $transition;
+    -o-transition:      $transition;
+    -webkit-transition: $transition;
+    transition:         $transition;
+}
+@mixin transition-property($property...) {
+    -moz-transition-property:    $property;
+    -o-transition-property:      $property;
+    -webkit-transition-property: $property;
+    transition-property:         $property;
+}
+@mixin transition-duration($duration...) {
+    -moz-transition-property:    $duration;
+    -o-transition-property:      $duration;
+    -webkit-transition-property: $duration;
+    transition-property:         $duration;
+}
+@mixin transition-timing-function($timing...) {
+    -moz-transition-timing-function:    $timing;
+    -o-transition-timing-function:      $timing;
+    -webkit-transition-timing-function: $timing;
+    transition-timing-function:         $timing;
+}
+@mixin transition-delay($delay...) {
+    -moz-transition-delay:    $delay;
+    -o-transition-delay:      $delay;
+    -webkit-transition-delay: $delay;
+    transition-delay:         $delay;
+}
+
+a {
+  color:#ccc;
+  &:hover {
+    color:#aaa;
+  }
+}
+
+.btn-square {
+  border-radius: 0px;
+  background:white;
+  display: block;
+  width: 240px;
+  margin: 0px;
+  box-shadow: 2px 2px 0px rgba(0,0,0,0.25);
+  color:#2d2c2a;
+  @include transition(all linear .3s);
+  &:hover {
+    color:#000;
+    box-shadow: 5px 5px 0px rgba(0,0,0,0.5);
+  }
+}
+.btn-square.btn-lg {
+  margin:10px auto;
+}
+
+.hero {
+  text-align: center;
+  h1 {
+    display: inline-block;
+    vertical-align: text-bottom;
+    line-height: 60px;
+    margin-left: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+.recording-group {
+  height: 110px;
+}
+
+.make-recording {
+  height:0px;
+  visibility: hidden;
+  @include transition(all linear .5s);
+  &.slide-down {
+    height:60px;
+    visibility: visible;
+  }
+  label {
+    margin-left:20px;
+  }
+}
