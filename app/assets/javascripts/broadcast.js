@@ -31,19 +31,19 @@ $(function() {
   };
 
   populateSelect = function(recordings) {
-    var recording, select, _i, _len, _results;
+    var recording, select, i, len, results;
     select = $('#selectRecordings');
     select.empty();
-    _results = [];
+    results = [];
 
-    for (_i = 0, _len = recordings.length; _i < _len; _i++) {
-      recording = recordings[_i];
-      _results.push((function(recording) {
+    for (i = 0, len = recordings.length; i < len; i++) {
+      recording = recordings[i];
+      results.push((function(recording) {
         return select.append($("<option></option>").val(recording.url).html(recording.date));
       })(recording));
     }
 
-    return _results;
+    return results;
   };
 
   updateAudio = function() {
