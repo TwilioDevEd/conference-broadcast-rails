@@ -3,6 +3,7 @@ require 'test_helper'
 class TwilioControllerTest < ActionController::TestCase
   # called before every single test
   def setup
+    ENV['TWILIO_NUMBER'] = "+15005550006"
   end
 
   test "should serve conference page" do
@@ -38,6 +39,18 @@ class TwilioControllerTest < ActionController::TestCase
     assert response.body.include? 'Dial'
     assert response.body.include? 'Conference'
     assert response.body.include? 'startConferenceOnEnter="true"'
+    assert_response :success
+  end
+
+  test "should serve broadcast page" do
+    get :broadcast
+    assert_response :success
+  end
+
+  test "should Record a new message when user clicks 'Make Recording'" do
+    get :broadcast_record, From: "15556505813"
+    assert response.body.include? 'Say'
+    assert response.body.include? 'record your message'
     assert_response :success
   end
 

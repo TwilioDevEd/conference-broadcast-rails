@@ -3,22 +3,24 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
   lastRecording = new Date('2000-09-27')
-  getRecordings= ->
+  getRecordings= (callback) ->
     $.ajax
       url: "/fetch_recordings"
       dataType: "json"
       error: (jqXHR, textStatus, errorThrown) ->
-        $('body').append "AJAX Error: #{textStatus}"
+        $('.recording-status').text(textStatus)
       success: (data, textStatus, jqXHR) ->
         showRecordings(data)
+        if callback
+          callback()
 
-  showRecordings= (recordings) =>
+  showRecordings= (recordings) ->
     newestRecording = new Date(recordings[0]['date'])
     if newestRecording > lastRecording
       lastRecording = newestRecording
       populateSelect(recordings)
 
-  populateSelect= (recordings) =>
+  populateSelect= (recordings) ->
     select = $('#selectRecordings')
     select.empty()
     for recording in recordings
@@ -27,7 +29,12 @@ $ ->
           $("<option></option>").val(recording.url).html(recording.date)
         )
 
-  $('.call-me').click (e) =>
+  updateAudio= () ->
+    selectedUrl = $('#selectRecordings option:selected').val()
+    $('#recording-audio').attr('src', selectedUrl)
+    $('#recording-url').attr('value', selectedUrl)
+
+  $('.call-me').click (e) ->
     e.preventDefault()
     phoneNumber = $('#recordingNumber').val()
     $.post "/call_recording", {phone_number: phoneNumber}
@@ -43,11 +50,8 @@ $ ->
     $('.make-recording').addClass 'slide-down'
 
 
-  $('#selectRecordings').on 'change', (e) ->
-    getRecordings()
-    selectedUrl = $('#selectRecordings option:selected').val()
-    $('#recording-audio').attr('src', selectedUrl)
-    $('#recording-url').attr('value', selectedUrl)
+  $('#selectRecordings').on 'change', 'click', (e) ->
+    getRecordings(updateAudio)
 
 
   $('.preview-btn').click (e) ->
@@ -55,7 +59,9 @@ $ ->
     document.getElementById('recording-audio').play();
 
 
-  if window.location.pathname == '/broadcast'
-    getRecordings()
+  $(document).ready ->
+    if window.location.pathname == '/broadcast'
+      getRecordings(updateAudio)
+    console.log window.location.pathname
 
 

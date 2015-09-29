@@ -57,7 +57,7 @@ class TwilioController < ApplicationController
     render xml: twiml.to_xml
   end
 
-  # POST /broadcast/record
+  # POST /broadcast/send
   def broadcast_send
     numbers = CSV.parse(params[:numbers])
     recording = params[:recording_url]
@@ -89,14 +89,13 @@ class TwilioController < ApplicationController
   # POST /call_recording
   def start_call_record
     phone_number = params[:phone_number]
-    puts request.base_url + '/broadcast/record'
 
     @client.account.calls.create(
-      from: @twilio_number,
+      from: '+15005550006',
       to: phone_number,
       url: request.base_url + '/broadcast/record'
     )
-    render status: :accepted
+    head :ok
   end
 
   # GET /fetch_recordings

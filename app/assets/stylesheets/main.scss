@@ -1,6 +1,7 @@
 // Place all the styles related to the Main controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import url(https://fonts.googleapis.com/css?family=Signika);
 @mixin transition($transition...) {
     -moz-transition:    $transition;
     -o-transition:      $transition;
@@ -32,10 +33,28 @@
     transition-delay:         $delay;
 }
 
+html {
+    box-sizing:border-box;
+}
+
+body {
+    
+    background-color:#e22228 ;
+    background-image:url(http://howtodocs.s3.amazonaws.com/rrk-map.gif);
+    background-size:cover;
+    color:white;
+}
+
 a {
   color:#ccc;
   &:hover {
     color:#aaa;
+  }
+  &:visited {
+    color:#601519;
+  }
+  &.red {
+    color:#601519;
   }
 }
 
@@ -71,6 +90,9 @@ a {
 
 .recording-group {
   height: 110px;
+  .form-group {
+    margin-bottom:0px;
+  }
 }
 
 .make-recording {
@@ -84,4 +106,13 @@ a {
   label {
     margin-left:20px;
   }
+}
+
+footer {
+  font-size:12px;
+  color:#601519;
+  margin-top:20px;
+  padding-top:20px;
+  text-align:center;
+  font-weight: bold;
 }

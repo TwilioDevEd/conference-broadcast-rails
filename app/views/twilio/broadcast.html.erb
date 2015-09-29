@@ -7,6 +7,7 @@
         <select class="form-control" id="selectRecordings">
           <option>Select a Recording</option>
         </select>
+        <p class="recording-status"></p>
       </div>
       <a href="#" class="preview-btn col-sm-2">
         <i class="fa fa-play-circle fa-2x"></i> Preview
@@ -31,3 +32,7 @@
   </div>
   <button type="submit" class="btn btn-square">Submit</button>
 </form>
+
+<% content_for :js do %>
+  <%= javascript_include_tag 'broadcast', 'data-turbolinks-track' => true %>
+<% end %>
