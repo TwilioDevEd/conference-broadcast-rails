@@ -2,7 +2,6 @@ require 'twilio-ruby'
 require 'sanitize'
 require 'csv'
 
-
 class TwilioController < ApplicationController
   before_action :set_client_and_number, only: [:start_call_record, :broadcast_send, :fetch_recordings]
 
@@ -100,17 +99,14 @@ class TwilioController < ApplicationController
 
   # GET /fetch_recordings
   def fetch_recordings
-    @recordings = []
-
-    @recs = @client.recordings.list().each do |recording|
-      result = {
-        :url => recording.mp3,
-        :date => recording.date_created
+    recordings = @client.recordings.list().map do |recording|
+      {
+        url:  recording.mp3,
+        date: recording.date_created
       }
-      @recordings << result
     end
 
-    render json: @recordings
+    render json: recordings
   end
 
   private
@@ -119,5 +115,4 @@ class TwilioController < ApplicationController
     @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
     @twilio_number = ENV['TWILIO_NUMBER']
   end
-
 end
