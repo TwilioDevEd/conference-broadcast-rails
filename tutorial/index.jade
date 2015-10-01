@@ -17,7 +17,7 @@
       with a large group of volunteers. In situations where all parties need
       to talk at once the organizer can quickly spin up a conference line. In
       other situations she can broadcast a spoken message to a list of
-      volunteer's phone numbers.
+      volunteer phone numbers.
 
       To run this sample app yourself, [download the code and follow the
       instructions on GitHub](https://github.com/TwilioDevEd/conference-
@@ -54,10 +54,10 @@
       **See Also:**
       * [Configuring Twilio Numbers for Voice](/help/faq/voice/how-do-i
         -assign-my-twilio-number-to-my-voice-application)
-      * [Rails Routing guide](http://guides.rubyonrails.org/routing.html)
       * [Using ngrok to test your Twilio webhooks
         locally](https://www.twilio.com/blog/2013/10/test-your-webhooks-
         locally-with-ngrok.html)
+      * [Rails Routing guide](http://guides.rubyonrails.org/routing.html)
 
   .step(data-file='app/controllers/twilio_controller.rb', data-highlight='38-41')
     :markdown
@@ -66,10 +66,10 @@
       Our Twilio number is now configured to [send HTTP
       requests](https://www.twilio.com/docs/api/twiml/twilio_request) to this
       controller method on any incoming voice calls. Our app responds with
-      [TwiML](https://www.twilio.com/docs/api/twiml) to tell Twilio what to do
-      in response to the message.
+      [TwiML](https://www.twilio.com/docs/api/twiml) to tell Twilio how to
+      handle the call.
 
-      In this case we use the Twilio Ruby library to generate TwiML that tells
+      We use the Twilio Ruby library to generate some TwiML that tells
       Twilio to [`Dial`](https://www.twilio.com/docs/api/twiml/dial) into a
       [Conference](https://www.twilio.com/docs/api/twiml/conference) that
       we're naming `"RapidResponseRoom"`. This means that anyone who calls
@@ -84,6 +84,7 @@
       * [Ruby TwiML
         Quickstart](https://www.twilio.com/docs/quickstart/ruby/twiml/say-
         response)
+      * [Conference waitUrl parameter](https://www.twilio.com/docs/api/twiml/conference#attributes-waitUrl)
 
   .step(data-file='app/controllers/twilio_controller.rb', data-highlight='14-27')
     :markdown
@@ -91,15 +92,15 @@
 
       In this scenario we ask for the caller's role before we connect them to
       the conference. These roles are:
-      * Moderator: can start and end the conference
-      * Speaker: can speak on the conference call
-      * Listener: is muted and can only listen to the call
+      * **Moderator:** can start and end the conference
+      * **Speaker:** can speak on the conference call
+      * **Listener:** is muted and can only listen to the call
 
       In this controller we [`Say`](https://www.twilio.com/docs/api/twiml/say)
       a simple message and then ask the caller to choose a role. Next we tell
-      Twilio to [`Gather`](https://www.twilio.com/docs/api/twiml/gather) the
-      input from the caller so that we can make decisions based on which role
-      they chose.
+      Twilio to [`Gather`](https://www.twilio.com/docs/api/twiml/gather) a
+      button press from the caller's phone so we know which role they want to
+      use.
 
       ---
 
@@ -113,27 +114,28 @@
       ## Connect to a Moderated Conference
 
       The *gather* verb from the previous step included an [`action`](https://www.twilio.com/docs/api/twiml/gather#attributes-action) parameter
-      that took an absolute or relative URL as a value - in our case, the
+      that took an absolute or relative URL as a value — in our case, the
       `conference/connect` route.
 
-      When the caller finished entering digits Twilio made a GET or POST
+      When the caller finishes entering digits Twilio makes a GET or POST
       request to this URL including a
       [`Digits`](https://www.twilio.com/docs/api/twiml/gather#attributes-
       action-parameters) parameter with the number our caller chose.
 
-      Depending on the caller's response, we will generate different TwiML to
-      [`Dial`](http
-        s://www.twilio.com/docs/api/twiml/dial) the [`Conference`](http
-        s://www.twilio.com/docs/api/twiml/conference).
+      We use that parameter to set a couple variables, `@muted` and
+      `@moderator`, which we then use to configure our
+      [`Dial`](https://www.twilio.com/docs/api/twiml/dial) and
+      [`Conference`](https://www.twilio.com/docs/api/twiml/conference) TwiML
+      elements.
 
       ---
 
       **See Also:**
+      * [Conference: `muted`](https://www.twilio.com/docs/api/twiml/conference
+        #attributes-muted)
       * [Conference: `startConferenceOnEnter`](http
         s://www.twilio.com/docs/api/twiml/conference#attributes-
         startConferenceOnEnter)
-      * [Conference: `muted`](https://www.twilio.com/docs/api/twiml/conference
-        #attributes-muted)
 
   .step(data-file='app/controllers/twilio_controller.rb')
     :markdown
@@ -142,14 +144,14 @@
       ![Rapid Response Kit](http://howtodocs.s3.amazonaws.com/RRK-
       broadcast.png)
 
-      In this use-case an organizer can broadcast a voice message to a list of
+      In addition to hosting conference calls, an organizer can use our
+      application to broadcast a voice message to a list of
       phone numbers. She can do this by choosing a recording from a dropdown,
-      entering a list of phone numbers and clicking 'Send'.
+      entering a list of phone numbers and clicking 'Submit'.
 
-      We'll be using Twilio's REST API to fetch all of the recordings
-      associated with our account. Additionally we will allow the organizer to
-      record a new message if she'd like. We'll be calling her using the
-      Twilio REST API and recording the call.
+      To power this feature, we'll use Twilio's REST API to fetch all of the
+      recordings associated with our account. If our organizer wants to record
+      a new message, we'll call her phone and record her response.
 
       Let's take a look at the code.
 
@@ -170,8 +172,8 @@
       This route fetches all of the
       [`recordings`](https://www.twilio.com/docs/api/rest/recording#list-get-
       example-1) associated with our Twilio account. We could filter these
-      results by date, or call sid using Twilio's API, but for this example
-      we'll just pull all recordings.
+      results by date or call sid using Twilio's API, but for this example
+      we just pull all recordings.
 
       In order to use Twilio's handy API we need to first create our Twilio
       client, which we can easily do by passing our credentials. Since we are
@@ -182,6 +184,7 @@
       Once we get all of the recordings we need to render a JSON response of
       our recordings object. This route will be called by our Javascript on
       page load.
+
       ---
 
       **See Also:**
@@ -198,13 +201,13 @@
     :markdown
       ## Recording a new Message
 
-      If the organizer needs to make a new recording, we can simply call her
-      and record the call. Twilio makes this very simple with the
+      If the organizer needs to make a new recording, we simply call her
+      and record the call. Twilio makes this simple with the
       [`Record`](https://www.twilio.com/docs/api/twiml/record) verb.
 
       Here we `Say` something to the caller and then `Record` her message.
       There are many more options we can pass to Record, but here we simply
-      tell it to stop recording on '*' press.
+      tell it to stop recording when '*' is pressed.
 
       ---
 
@@ -219,19 +222,20 @@
     :markdown
       ## Broadcast a Recorded Message
 
-      Here we parse our phone numbers submitted through the webform. Because
+      This controller processes our voice broadcast webform, starting with
+      the phone numbers our organizer provided. Because
       they are comma separated we can use [Ruby's CSV](http://ruby-
-      doc.org/stdlib-2.0.0/libdoc/csv/rdoc/CSV.html) class to parse.
+      doc.org/stdlib-2.0.0/libdoc/csv/rdoc/CSV.html) class to parse them.
 
       Next we initiate a phone call to each number using Twilio's REST API.
 
       When Twilio connects this call it will make a request to the
       [`url`](https://www.twilio.com/docs/api/rest/making-calls#url-
-      parameter) parameter to get further instructions. Since we will want
-      to play our recording at that point we need to send the `recording_url`
-      as a parameter with the Twilio request `url`.
+      parameter) parameter to get further instructions. We include a
+      `recording_url` parameter in that URL so that our `broadcast_play`
+      controller will know which recording to use.
 
-      Now in our `broadcast/play` route all we need to do is
+      That makes the work for our `broadcast/play` route simple — we just
       [`Play`](https://www.twilio.com/docs/api/twiml/say) the recording.
 
       ---
