@@ -13,7 +13,7 @@ To run this locally on your machine:
 
 1) Grab latest source
 <pre>
-git clone git://github.com/TwilioDevEd/conference-broadcast-rails.git 
+git clone git://github.com/TwilioDevEd/conference-broadcast-rails.git
 </pre>
 
 2) Navigate to folder and run
@@ -26,22 +26,18 @@ On 64 bit versions of OS X, you may need to install with the following to allow 
 ```bash
 ARCHFLAGS="-arch x86_64" bundle install
 ```
-3) Create the Database
-<pre>
-rake db:create db:migrate
-</pre>
 
-4) Make sure the tests succeed
+3) Make sure the tests succeed
 <pre>
 rake test
 </pre>
 
-5) Run the server
+4) Run the server
 <pre>
 rails server
 </pre>
 
-6) Check it out at [localhost:3000/](http://localhost:3000/)
+5) Check it out at [localhost:3000/](http://localhost:3000/)
 
 ### Configure Twilio to call your webhooks
 
@@ -56,7 +52,7 @@ numbers/incoming) and open a number's configuration by clicking on it.
 
 ![Configure Voice](http://howtodocs.s3.amazonaws.com/twilio-number-config-all-med.gif)
 
-## Meta 
+## Meta
 
 * No warranty expressed or implied.  Software is as is. Diggity.
 * [MIT License](http://www.opensource.org/licenses/mit-license.html)

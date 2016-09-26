@@ -41,7 +41,7 @@ class TwilioController < ApplicationController
           waitUrl: "http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient",
           muted: @muted || "false",
           startConferenceOnEnter: @moderator || "false",
-          endConferenceOnEnter: @moderator || "false"
+          endConferenceOnExit: @moderator || "false"
       end
     end
     render xml: twiml.to_xml
