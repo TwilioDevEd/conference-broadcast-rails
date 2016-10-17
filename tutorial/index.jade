@@ -20,8 +20,8 @@
       volunteer phone numbers.
 
       To run this sample app yourself, [download the code and follow the
-      instructions on GitHub](https://github.com/TwilioDevEd/conference-
-      broadcast- rails). You might also want to click around the views for
+      instructions on GitHub](//github.com/TwilioDevEd/conference-broadcast-rails).
+      You might also want to click around the views for
       this app, since in this tutorial we will only be covering the Twilio
       pieces.
 
@@ -31,7 +31,7 @@
       ---
 
       **See Also:**
-      * [Getting Started with Ruby on Rails](http://guides.rubyonrails.org/getting_started.html)
+      * [Getting Started with Ruby on Rails](//guides.rubyonrails.org/getting_started.html)
       * [Getting started with the Twilio Ruby gem](//twilio-ruby.readthedocs.org/en/latest/index.html#getting-started)
 
   .step(data-file='config/routes.rb')
@@ -42,7 +42,7 @@
       Twilio numbers to send our web application an HTTP request when we get
       an incoming call.
 
-      [Click on one of your numbers](/user/account/phone-numbers/incoming) and
+      [Click on one of your numbers](//www.twilio.com/console/phone-numbers/incoming) and
       configure the Voice URL to point to our app. In our code the route will
       be `/conference`.
 
@@ -59,7 +59,7 @@
         locally-with-ngrok.html)
       * [Rails Routing guide](http://guides.rubyonrails.org/routing.html)
 
-  .step(data-file='app/controllers/twilio_controller.rb', data-highlight='37-46')
+  .step(data-file='app/controllers/twilio_controller.rb', data-highlight='39-48')
     :markdown
       ## Create a Simple Conference Call
 
@@ -163,7 +163,7 @@
         Quickstart](https://www.twilio.com/docs/quickstart/ruby/rest/call-
         request)
 
-  .step(data-file='app/controllers/twilio_controller.rb', data-highlight='101-117')
+  .step(data-file='app/controllers/twilio_controller.rb', data-highlight='111-120')
     :markdown
       ## Fetch Recordings
 
@@ -195,7 +195,7 @@
         Results](https://www.twilio.com/docs/api/rest/recording#list-get-
         example-4)
 
-  .step(data-file='app/controllers/twilio_controller.rb', data-highlight='51-58')
+  .step(data-file='app/controllers/twilio_controller.rb', data-highlight='53-59')
     :markdown
       ## Recording a new Message
 
@@ -216,7 +216,7 @@
         XML](http://guides.rubyonrails.org/layouts_and_rendering.html
         #rendering-xml)
 
-  .step(data-file='app/controllers/twilio_controller.rb', data-highlight='60-83')
+  .step(data-file='app/controllers/twilio_controller.rb', data-highlight='62-84')
     :markdown
       ## Broadcast a Recorded Message
 
