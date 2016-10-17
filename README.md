@@ -1,56 +1,78 @@
+<a href="https://www.twilio.com">
+  <img src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg" alt="Twilio" width="250" />
+</a>
+
 # Rapid Response Kit: Building Conferencing and Broadcasting with Twilio. Level: Intermediate. Powered by Twilio - Ruby on Rails
+
+[![Build Status](https://travis-ci.org/TwilioDevEd/conference-broadcast-rails.svg?branch=master)](https://travis-ci.org/TwilioDevEd/conference-broadcast-rails)
 
 An example application implementing an disaster response kit that allows an organizer to instantly communicate with volunteers.  For a
 step-by-step tutorial, [visit this link](https://www.twilio.com/docs/howto/walkthrough/conference-broadcast/ruby/rails).
 
-Deploy this example app to Heroku now!
+## Local Development
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/TwilioDevEd/conference-broadcast-rails)
+This project is built using the [Ruby on Rails](http://rubyonrails.org/) web framework.
 
-### Local Development
+1. First clone this repository and `cd` into it
 
-To run this locally on your machine:
+   ```bash
+   $ git clone https://github.com/TwilioDevEd/conference-broadcast-rails.git
+   $ cd conference-broadcast-rails
+   ```
 
-1) Grab latest source
-<pre>
-git clone git://github.com/TwilioDevEd/conference-broadcast-rails.git
-</pre>
+1. Install the dependencies
 
-2) Navigate to folder and run
-<pre>
-bundle install
-</pre>
+   ```bash
+   $ bundle
+   ```
 
-On 64 bit versions of OS X, you may need to install with the following to allow the pg gem to install:
+1. Copy the sample configuration file and edit it to match your configuration
 
-```bash
-ARCHFLAGS="-arch x86_64" bundle install
-```
+   ```bash
+   $ cp .env.example .env
+   ```
+   You can find your `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` in your
+   [Twilio Account Settings](https://www.twilio.com/console).
+   You will also need a `TWILIO_NUMBER`, which you may find [here](https://www.twilio.com/console/phone-numbers/incoming).
 
-3) Make sure the tests succeed
-<pre>
-rake test
-</pre>
+   Run `source .env` to export the environment variables
 
-4) Run the server
-<pre>
-rails server
-</pre>
+1. Make sure the tests succeed
+   ```bash
+   $ bundle exec rake
+   ```
 
-5) Check it out at [localhost:3000/](http://localhost:3000/)
+1. Run the server
 
-### Configure Twilio to call your webhooks
+   ```bash
+   $ bundle exec rails s
+   ```
 
-You will also need to configure Twilio to call your application when calls are received
+1. Expose your application to the wider internet using [ngrok](http://ngrok.com). This step
+   is important because the application won't work as expected if you run it through
+   localhost.
 
-You will need to provision at least one Twilio number with voice capabilities
-so the application's users can take surveys. You can buy a number [right
-here](https://www.twilio.com/user/account/phone-numbers/search). Once you have
-a number you need to configure your number to work with your application. Open
-[the number management page](https://www.twilio.com/user/account/phone-
-numbers/incoming) and open a number's configuration by clicking on it.
+   ```bash
+   $ ngrok http 3000
+   ```
 
-![Configure Voice](http://howtodocs.s3.amazonaws.com/twilio-number-config-all-med.gif)
+   Once ngrok is running, open up your browser and go to your ngrok URL. It will
+   look something like this: `http://9a159ccf.ngrok.io`
+
+   You can read [this blog post](https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html)
+   for more details on how to use ngrok.
+
+1. Configure Twilio to call your webhooks
+
+   You will also need to configure Twilio to call your application when calls are received on your `TWILIO_NUMBER`. The voice url should look something like this:
+
+   ```
+   http://9a159ccf.ngrok.io/conference (POST)
+   ```
+
+   ![Configure Voice](http://howtodocs.s3.amazonaws.com/twilio-number-config-all-med.gif)
+
+That's it!
 
 ## Meta
 

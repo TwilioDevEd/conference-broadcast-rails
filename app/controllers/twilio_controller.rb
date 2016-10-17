@@ -1,13 +1,11 @@
-require 'twilio-ruby'
-require 'sanitize'
-require 'csv'
-
 class TwilioController < ApplicationController
-  before_action :set_client_and_number, only: [:start_call_record, :broadcast_send, :fetch_recordings]
+  TWILIO_API_HOST = 'https://api.twilio.com'
+
+  before_action :set_client_and_number, only: [:start_call_record, :broadcast_send, :fetch_recordings, :conference]
 
   # GET /conference
   def conference
-    @conference_number = ENV['RR_CONFERENCE_NUMBER']
+    @conference_number = @twilio_number
   end
 
   # POST /conference
@@ -18,7 +16,7 @@ class TwilioController < ApplicationController
         g.Say "Press 1 to join as a listener."
         g.Say "Press 2 to join as a speaker."
         g.Say "Press 3 to join as the moderator."
-      end 
+      end
     end
     # can also use .text here, which is aliased to .to_xml in twilio-ruby
     # render xml: twiml.text
@@ -37,7 +35,7 @@ class TwilioController < ApplicationController
     twiml = Twilio::TwiML::Response.new do |r|
       r.Say "You have joined the conference."
       r.Dial do |d|
-        d.Conference "RapidResponseRoom", 
+        d.Conference "RapidResponseRoom",
           waitUrl: "http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient",
           muted: @muted || "false",
           startConferenceOnEnter: @moderator || "false",
@@ -63,7 +61,7 @@ class TwilioController < ApplicationController
     url = request.base_url + '/broadcast/play?recording_url=' + recording
 
     numbers.each do |number|
-      @client.account.calls.create(
+      @client.calls.create(
         from: @twilio_number,
         to: number,
         url: url
@@ -89,19 +87,18 @@ class TwilioController < ApplicationController
   def start_call_record
     phone_number = params[:phone_number]
 
-    @client.account.calls.create(
-      from: '+15005550006',
+    @client.calls.create(
+      from: @twilio_number,
       to: phone_number,
-      url: request.base_url + '/broadcast/record'
+      url: "#{request.base_url}/broadcast/record"
     )
-    head :ok
   end
 
   # GET /fetch_recordings
   def fetch_recordings
-    recordings = @client.recordings.list().map do |recording|
+    recordings = @client.recordings.list.map do |recording|
       {
-        url:  recording.mp3,
+        url:  full_recording_uri(recording.uri),
         date: recording.date_created
       }
     end
@@ -110,6 +107,14 @@ class TwilioController < ApplicationController
   end
 
   private
+
+  # returns full uri given partial recording uri
+  def full_recording_uri(uri)
+    # remove json extension from uri
+    clean_uri = uri.sub!('.json', '')
+
+    "#{TWILIO_API_HOST}#{clean_uri}"
+  end
 
   def set_client_and_number
     @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
