@@ -1,10 +1,6 @@
-require 'twilio-ruby'
-require 'sanitize'
-require 'csv'
-
-TWILIO_API_HOST = 'api.twilio.com'
-
 class TwilioController < ApplicationController
+  TWILIO_API_HOST = 'https://api.twilio.com'
+
   before_action :set_client_and_number, only: [:start_call_record, :broadcast_send, :fetch_recordings, :conference]
 
   # GET /conference
@@ -94,17 +90,8 @@ class TwilioController < ApplicationController
     @client.calls.create(
       from: @twilio_number,
       to: phone_number,
-      url: request.base_url + '/broadcast/record'
+      url: "#{request.base_url}/broadcast/record"
     )
-    head :ok
-  end
-
-  # returns full uri given partial recording uri
-  def full_recording_uri(uri)
-    # remove json extension from uri
-    clean_uri = uri.sub! '.json', ''
-
-    "https://api.twilio.com#{clean_uri}"
   end
 
   # GET /fetch_recordings
@@ -120,6 +107,14 @@ class TwilioController < ApplicationController
   end
 
   private
+
+  # returns full uri given partial recording uri
+  def full_recording_uri(uri)
+    # remove json extension from uri
+    clean_uri = uri.sub!('.json', '')
+
+    "#{TWILIO_API_HOST}#{clean_uri}"
+  end
 
   def set_client_and_number
     @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
