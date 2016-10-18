@@ -55,7 +55,7 @@ locally-with-ngrok.html">Using ngrok to test your Twilio webhooks
 locally</a></li>
 <li><a href="http://guides.rubyonrails.org/routing.html">Rails Routing guide</a></li>
 </ul>
-</div><div data-file="app/controllers/twilio_controller.rb" data-highlight="39-48" class="step"><h2 id="create-a-simple-conference-call">Create a Simple Conference Call</h2>
+</div><div data-file="app/controllers/twilio_controller.rb" data-highlight="35-45" class="step"><h2 id="create-a-simple-conference-call">Create a Simple Conference Call</h2>
 <p>Our Twilio number is now configured to <a href="https://www.twilio.com/docs/api/twiml/twilio_request">send HTTP
 requests</a> to this
 controller method on any incoming voice calls. Our app responds with
@@ -76,7 +76,7 @@ response">Ruby TwiML
 Quickstart</a></li>
 <li><a href="https://www.twilio.com/docs/api/twiml/conference#attributes-waitUrl">Conference waitUrl parameter</a></li>
 </ul>
-</div><div data-file="app/controllers/twilio_controller.rb" data-highlight="14-27" class="step"><h2 id="create-a-moderated-conference">Create a Moderated Conference</h2>
+</div><div data-file="app/controllers/twilio_controller.rb" data-highlight="12-24" class="step"><h2 id="create-a-moderated-conference">Create a Moderated Conference</h2>
 <p>In this scenario we ask for the caller&#39;s role before we connect them to
 the conference. These roles are:</p>
 <ul>
@@ -96,7 +96,7 @@ use.</p>
 response">Ruby TwiML
 Quickstart</a></li>
 </ul>
-</div><div data-file="app/controllers/twilio_controller.rb" data-highlight="29-49" class="step"><h2 id="connect-to-a-moderated-conference">Connect to a Moderated Conference</h2>
+</div><div data-file="app/controllers/twilio_controller.rb" data-highlight="27-46" class="step"><h2 id="connect-to-a-moderated-conference">Connect to a Moderated Conference</h2>
 <p>The <em>gather</em> verb from the previous step included an <a href="https://www.twilio.com/docs/api/twiml/gather#attributes-action"><code>action</code></a> parameter
 that took an absolute or relative URL as a value — in our case, the
 <code>conference/connect</code> route.</p>
@@ -137,7 +137,7 @@ Quickstart</a></li>
 request">Make Outgoing Calls: Ruby
 Quickstart</a></li>
 </ul>
-</div><div data-file="app/controllers/twilio_controller.rb" data-highlight="111-120" class="step"><h2 id="fetch-recordings">Fetch Recordings</h2>
+</div><div data-file="app/controllers/twilio_controller.rb" data-highlight="98-117" class="step"><h2 id="fetch-recordings">Fetch Recordings</h2>
 <p>This route fetches all of the
 <a href="https://www.twilio.com/docs/api/rest/recording#list-get-
 example-1"><code>recordings</code></a> associated with our Twilio account. We could filter these
@@ -163,7 +163,7 @@ JSON</a></li>
 example-4">Twilio REST API: Filter Recordings
 Results</a></li>
 </ul>
-</div><div data-file="app/controllers/twilio_controller.rb" data-highlight="53-59" class="step"><h2 id="recording-a-new-message">Recording a new Message</h2>
+</div><div data-file="app/controllers/twilio_controller.rb" data-highlight="49-55" class="step"><h2 id="recording-a-new-message">Recording a new Message</h2>
 <p>If the organizer needs to make a new recording, we simply call her
 and record the call. Twilio makes this simple with the
 <a href="https://www.twilio.com/docs/api/twiml/record"><code>Record</code></a> verb.</p>
@@ -179,7 +179,7 @@ Attributes</a></li>
 #rendering-xml">Rails: Rendering
 XML</a></li>
 </ul>
-</div><div data-file="app/controllers/twilio_controller.rb" data-highlight="62-84" class="step"><h2 id="broadcast-a-recorded-message">Broadcast a Recorded Message</h2>
+</div><div data-file="app/controllers/twilio_controller.rb" data-highlight="58-80" class="step"><h2 id="broadcast-a-recorded-message">Broadcast a Recorded Message</h2>
 <p>This controller processes our voice broadcast webform, starting with
 the phone numbers our organizer provided. Because
 they are comma separated we can use <a href="http://ruby-
