@@ -10,17 +10,17 @@ class TwilioController < ApplicationController
 
   # POST /conference
   def join_conference
-    twiml = Twilio::TwiML::Response.new do |r|
-      r.Say "You are about to join the Rapid Response conference"
-      r.Gather action: "conference/connect" do |g|
-        g.Say "Press 1 to join as a listener."
-        g.Say "Press 2 to join as a speaker."
-        g.Say "Press 3 to join as the moderator."
-      end
-    end
-    # can also use .text here, which is aliased to .to_xml in twilio-ruby
-    # render xml: twiml.text
-    render xml: twiml.to_xml
+    response = Twilio::TwiML::VoiceResponse.new
+    response.say("You are about to join the Rapid Response conference")
+    gather = Twilio::TwiML::Gather.new(action: 'conference/connect')
+    gather.say("Press 1 to join as a listener.")
+    gather.say("Press 2 to join as a speaker.")
+    gather.say("Press 3 to join as the moderator.")
+    response.append(gather)
+
+    # can also use .to_s here, which is aliased to .to_xml_str in twilio-ruby
+    # render xml: response.to_s
+    render xml: response.to_xml_str
   end
 
   # POST /conference/connect
@@ -32,26 +32,26 @@ class TwilioController < ApplicationController
       @moderator = "true"
     end
 
-    twiml = Twilio::TwiML::Response.new do |r|
-      r.Say "You have joined the conference."
-      r.Dial do |d|
-        d.Conference "RapidResponseRoom",
-          waitUrl: "http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient",
-          muted: @muted || "false",
-          startConferenceOnEnter: @moderator || "false",
-          endConferenceOnExit: @moderator || "false"
-      end
-    end
-    render xml: twiml.to_xml
+    response = Twilio::TwiML::VoiceResponse.new
+    response.say("You have joined the conference.")
+    dial = Twilio::TwiML::Dial.new
+    dial.conference("RapidResponseRoom",
+      wait_url: "http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient",
+      muted: @muted || "false",
+      start_conference_on_enter: @moderator || "false",
+      endConference_on_exit: @moderator || "false")
+    response.append(dial)
+
+    render xml: response.to_xml_str
   end
 
   # POST /broadcast/record
   def broadcast_record
-    twiml = Twilio::TwiML::Response.new do |r|
-      r.Say "Please record your message after the beep. Press star to end your recording."
-      r.Record finishOnKey: "*"
-    end
-    render xml: twiml.to_xml
+    response = Twilio::TwiML::VoiceResponse.new
+    response.say("Please record your message after the beep. Press star to end your recording.")
+    response.record(finish_on_key: "*")
+
+    render xml: response.to_xml_str
   end
 
   # POST /broadcast/send
@@ -72,11 +72,10 @@ class TwilioController < ApplicationController
   # POST /broadcast/play
   def broadcast_play
     recording_url = params[:recording_url]
+    response = Twilio::TwiML::VoiceResponse.new
+    response.play(recording_url)
 
-    twiml = Twilio::TwiML::Response.new do |r|
-      r.Play recording_url
-    end
-    render xml: twiml.to_xml
+    render xml: response.to_xml_str
   end
 
   # GET /broadcast
