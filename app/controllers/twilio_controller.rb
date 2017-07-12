@@ -18,9 +18,9 @@ class TwilioController < ApplicationController
     gather.say("Press 3 to join as the moderator.")
     response.append(gather)
 
-    # can also use .to_s here, which is aliased to .to_xml_str in twilio-ruby
+    # can also use .to_s here, which is aliased to .to_s in twilio-ruby
     # render xml: response.to_s
-    render xml: response.to_xml_str
+    render xml: response.to_s
   end
 
   # POST /conference/connect
@@ -42,7 +42,7 @@ class TwilioController < ApplicationController
       endConference_on_exit: @moderator || "false")
     response.append(dial)
 
-    render xml: response.to_xml_str
+    render xml: response.to_s
   end
 
   # POST /broadcast/record
@@ -51,7 +51,7 @@ class TwilioController < ApplicationController
     response.say("Please record your message after the beep. Press star to end your recording.")
     response.record(finish_on_key: "*")
 
-    render xml: response.to_xml_str
+    render xml: response.to_s
   end
 
   # POST /broadcast/send
@@ -75,7 +75,7 @@ class TwilioController < ApplicationController
     response = Twilio::TwiML::VoiceResponse.new
     response.play(recording_url)
 
-    render xml: response.to_xml_str
+    render xml: response.to_s
   end
 
   # GET /broadcast
