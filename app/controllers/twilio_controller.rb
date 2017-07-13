@@ -18,8 +18,6 @@ class TwilioController < ApplicationController
     gather.say("Press 3 to join as the moderator.")
     response.append(gather)
 
-    # can also use .to_s here, which is aliased to .to_s in twilio-ruby
-    # render xml: response.to_s
     render xml: response.to_s
   end
 
