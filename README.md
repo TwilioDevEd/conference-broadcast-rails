@@ -6,6 +6,8 @@
 
 [![Build Status](https://travis-ci.org/TwilioDevEd/conference-broadcast-rails.svg?branch=master)](https://travis-ci.org/TwilioDevEd/conference-broadcast-rails)
 
+> We are currently in the process of updating this sample template. If you are encountering any issues with the sample, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues) and we'll try to help you.
+
 An example application implementing an disaster response kit that allows an organizer to instantly communicate with volunteers.  For a
 step-by-step tutorial, [visit this link](https://www.twilio.com/docs/howto/walkthrough/conference-broadcast/ruby/rails).
 
