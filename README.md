@@ -4,7 +4,7 @@
 
 # Rapid Response Kit: Building Conferencing and Broadcasting with Twilio. Level: Intermediate. Powered by Twilio - Ruby on Rails
 
-[![Build Status](https://travis-ci.org/TwilioDevEd/conference-broadcast-rails.svg?branch=master)](https://travis-ci.org/TwilioDevEd/conference-broadcast-rails)
+![](https://github.com/TwilioDevEd/conference-broadcast-rails/workflows/Ruby/badge.svg)
 
 > We are currently in the process of updating this sample template. If you are encountering any issues with the sample, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues) and we'll try to help you.
 
@@ -13,8 +13,10 @@ step-by-step tutorial, [visit this link](https://www.twilio.com/docs/howto/walkt
 
 ## Local Development
 
-This project is built using the [Ruby on Rails](http://rubyonrails.org/) web framework.
+### Requirements
+This project is built using the [Ruby on Rails](http://rubyonrails.org/) web framework with ruby 2.6.3 version.
 
+### Set up
 1. First clone this repository and `cd` into it
 
    ```bash
@@ -25,7 +27,7 @@ This project is built using the [Ruby on Rails](http://rubyonrails.org/) web fra
 1. Install the dependencies
 
    ```bash
-   $ bundle
+   $ bundle install
    ```
 
 1. Copy the sample configuration file and edit it to match your configuration
@@ -33,25 +35,28 @@ This project is built using the [Ruby on Rails](http://rubyonrails.org/) web fra
    ```bash
    $ cp .env.example .env
    ```
-   You can find your `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` in your
-   [Twilio Account Settings](https://www.twilio.com/console).
-   You will also need a `TWILIO_NUMBER`, which you may find [here](https://www.twilio.com/console/phone-numbers/incoming).
 
-   Run `source .env` to export the environment variables
+   | Config Value  | Description |
+   | :-------------  |:------------- |
+   `TWILIO_ACCOUNT_SID` / `TWILIO_AUTH_TOKEN` | In [Twilio Account Settings](https://www.twilio.com/console).
+   `TWILIO_NUMBER` | You may find [here](https://www.twilio.com/console/phone-numbers/incoming).
 
 1. Make sure the tests succeed
+
    ```bash
-   $ bundle exec rake
+   $ bundle exec rails test
    ```
 
-1. Run the server
+### Try it out
+
+1. Run the server, the following command will run the application on port 3000.
 
    ```bash
-   $ bundle exec rails s
+   $ bundle exec rails server
    ```
 
 1. Expose your application to the wider internet using [ngrok](http://ngrok.com). This step
-   is important because the application won't work as expected if you run it through
+   **is important** because the application won't work as expected if you run it through
    localhost.
 
    ```bash
@@ -72,12 +77,11 @@ This project is built using the [Ruby on Rails](http://rubyonrails.org/) web fra
    http://9a159ccf.ngrok.io/conference (POST)
    ```
 
-   ![Configure Voice](http://howtodocs.s3.amazonaws.com/twilio-number-config-all-med.gif)
-
 That's it!
 
 ## Meta
 
 * No warranty expressed or implied.  Software is as is. Diggity.
+* The CodeExchange repository can be found [here](https://github.com/twilio-labs/code-exchange/).
 * [MIT License](http://www.opensource.org/licenses/mit-license.html)
 * Lovingly crafted by Twilio Developer Education.
