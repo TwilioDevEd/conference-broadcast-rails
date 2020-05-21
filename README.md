@@ -8,80 +8,127 @@
 
 > We are currently in the process of updating this sample template. If you are encountering any issues with the sample, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues) and we'll try to help you.
 
-An example application implementing an disaster response kit that allows an organizer to instantly communicate with volunteers.  For a
-step-by-step tutorial, [visit this link](https://www.twilio.com/docs/howto/walkthrough/conference-broadcast/ruby/rails).
+## About
 
-## Local Development
+An example application implementing an disaster response kit that allows an organizer to instantly communicate with volunteers. This application is built with Ruby on Rails. 
+
+For a step-by-step tutorial, [visit this link](https://www.twilio.com/docs/howto/walkthrough/conference-broadcast/ruby/rails).
+
+Implementations in other languages:
+
+| .NET | Java | Python | PHP | Node |
+| :--- | :--- | :----- | :-- | :--- |
+| [Done](https://github.com/TwilioDevEd/conference-broadcast-csharp)  | [Done](https://github.com/TwilioDevEd/conference-broadcast-spark)  | TBD  | [Done](https://github.com/TwilioDevEd/conference-broadcast-laravel) | TDB |
+
+## Set up
 
 ### Requirements
-This project is built using the [Ruby on Rails](http://rubyonrails.org/) web framework with ruby 2.6.3 version.
+- [Ruby](https://www.ruby-lang.org/) **2.6.x** version.
 
-### Set up
+### Twilio Account Settings
+
+This application should give you a ready-made starting point for writing your own application.
+Before we begin, we need to collect all the config values we need to run the application:
+
+| Config Value | Description |
+| :----------- | :---------- |
+| TWILIO_ACCOUNT_SID  | Your primary Twilio account identifier - find this [in the Console](https://www.twilio.com/console). |
+| TWILIO_AUTH_TOKEN   | Used to authenticate - [just like the above, you'll find this here](https://www.twilio.com/console). |
+| TWILIO_NUMBER | A Twilio phone number in [E.164 format](https://en.wikipedia.org/wiki/E.164) - you can [get one here](https://www.twilio.com/console/phone-numbers/incoming) |
+
+### Local development
+
 1. First clone this repository and `cd` into it
 
    ```bash
-   $ git clone https://github.com/TwilioDevEd/conference-broadcast-rails.git
-   $ cd conference-broadcast-rails
+   git clone https://github.com/TwilioDevEd/conference-broadcast-rails.git
+   cd conference-broadcast-rails
    ```
 
-1. Install the dependencies
+2. Install the dependencies
 
    ```bash
-   $ bundle install
+   make install
    ```
 
-1. Copy the sample configuration file and edit it to match your configuration
+3. Copy the sample configuration file and edit it to match your configuration
 
    ```bash
-   $ cp .env.example .env
+   cp .env.example .env
    ```
 
-   | Config Value  | Description |
-   | :-------------  |:------------- |
-   `TWILIO_ACCOUNT_SID` / `TWILIO_AUTH_TOKEN` | In [Twilio Account Settings](https://www.twilio.com/console).
-   `TWILIO_NUMBER` | You may find [here](https://www.twilio.com/console/phone-numbers/incoming).
+   See [Twilio Account Settings](#twilio-account-settings) to locate the necessary environment variables.
 
-1. Make sure the tests succeed
+4. Run the server, the following command will run the application on port 3000.
 
    ```bash
-   $ bundle exec rails test
+   make serve
    ```
 
-### Try it out
-
-1. Run the server, the following command will run the application on port 3000.
-
-   ```bash
-   $ bundle exec rails server
-   ```
-
-1. Expose your application to the wider internet using [ngrok](http://ngrok.com). This step
+5. Expose your application to the wider internet using [ngrok](http://ngrok.com). This step
    **is important** because the application won't work as expected if you run it through
-   localhost.
-
-   ```bash
-   $ ngrok http 3000
-   ```
-
-   Once ngrok is running, open up your browser and go to your ngrok URL. It will
-   look something like this: `http://9a159ccf.ngrok.io`
-
-   You can read [this blog post](https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html)
+   localhost. You can read [this blog post](https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html)
    for more details on how to use ngrok.
 
-1. Configure Twilio to call your webhooks
+   ```bash
+   ngrok http 3000
+   ```
 
-   You will also need to configure Twilio to call your application when calls are received on your `TWILIO_NUMBER`. The voice url should look something like this:
+6. Once ngrok is running, open up your browser and go to your ngrok URL. It will
+   look something like this: 
+   
+   ```
+   http://9a159ccf.ngrok.io
+   ```
+
+7. Configure Twilio to call your webhooks You will also need to configure Twilio to call your application when calls are received.
+
+   You will need to provision at least one Twilio number with voice capabilities so the application's users can participate in conferences. You an buy a number right [here](https://www.twilio.com/console/phone-numbers/search). Once you have a number you need to configure your number to work with your application. Open the [number management page](https://www.twilio.com/console/phone-numbers/incoming) and open a number's configuration by clicking on it.
+
+   Remember that the number where you change the voice webhooks must be the same one you set on the TWILIO_NUMBER environment variable.
 
    ```
    http://9a159ccf.ngrok.io/conference (POST)
    ```
 
+   ![](images/number_voice_url.png)
+
 That's it!
 
-## Meta
+### Test
 
-* No warranty expressed or implied.  Software is as is. Diggity.
-* The CodeExchange repository can be found [here](https://github.com/twilio-labs/code-exchange/).
-* [MIT License](http://www.opensource.org/licenses/mit-license.html)
-* Lovingly crafted by Twilio Developer Education.
+You can run the tests locally by typing:
+
+```bash
+bundle exec rails test
+```
+
+### Cloud deployment
+
+Additionally to trying out this application locally, you can deploy it to a variety of host services. Here is a small selection of them.
+
+Please be aware that some of these might charge you for the usage or might make the source code for this application visible to the public. When in doubt research the respective hosting service first.
+
+| Service                           |                                                                                                                                                                                                                           |
+| :-------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [Heroku](https://www.heroku.com/) | [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)                                                                                                                                       |
+
+## Resources
+
+- The CodeExchange repository can be found [here](https://github.com/twilio-labs/code-exchange/).
+
+## Contributing
+
+This template is open source and welcomes contributions. All contributions are subject to our [Code of Conduct](https://github.com/twilio-labs/.github/blob/master/CODE_OF_CONDUCT.md).
+
+[Visit the project on GitHub](https://github.com/twilio-labs/sample-template-nodejs)
+
+## License
+
+[MIT](http://www.opensource.org/licenses/mit-license.html)
+
+## Disclaimer
+
+No warranty expressed or implied. Software is as is.
+
+[twilio]: https://www.twilio.com
