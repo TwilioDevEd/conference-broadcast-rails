@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+require 'csv'
 class TwilioController < ApplicationController
   TWILIO_API_HOST = 'https://api.twilio.com'
 
@@ -11,11 +14,11 @@ class TwilioController < ApplicationController
   # POST /conference
   def join_conference
     response = Twilio::TwiML::VoiceResponse.new
-    response.say("You are about to join the Rapid Response conference")
+    response.say(message:"You are about to join the Rapid Response conference")
     gather = Twilio::TwiML::Gather.new(action: 'conference/connect')
-    gather.say("Press 1 to join as a listener.")
-    gather.say("Press 2 to join as a speaker.")
-    gather.say("Press 3 to join as the moderator.")
+    gather.say(message: "Press 1 to join as a listener.")
+    gather.say(message: "Press 2 to join as a speaker.")
+    gather.say(message: "Press 3 to join as the moderator.")
     response.append(gather)
 
     render xml: response.to_s
@@ -31,7 +34,7 @@ class TwilioController < ApplicationController
     end
 
     response = Twilio::TwiML::VoiceResponse.new
-    response.say("You have joined the conference.")
+    response.say(message: "You have joined the conference.")
     dial = Twilio::TwiML::Dial.new
     dial.conference("RapidResponseRoom",
       wait_url: "http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient",
@@ -46,7 +49,7 @@ class TwilioController < ApplicationController
   # POST /broadcast/record
   def broadcast_record
     response = Twilio::TwiML::VoiceResponse.new
-    response.say("Please record your message after the beep. Press star to end your recording.")
+    response.say(message: "Please record your message after the beep. Press star to end your recording.")
     response.record(finish_on_key: "*")
 
     render xml: response.to_s
@@ -56,7 +59,7 @@ class TwilioController < ApplicationController
   def broadcast_send
     numbers = CSV.parse(params[:numbers])
     recording = params[:recording_url]
-    url = request.base_url + '/broadcast/play?recording_url=' + recording
+    url = "#{request.base_url}/broadcast/play?recording_url=#{recording}"
 
     numbers.each do |number|
       @client.calls.create(
@@ -71,7 +74,7 @@ class TwilioController < ApplicationController
   def broadcast_play
     recording_url = params[:recording_url]
     response = Twilio::TwiML::VoiceResponse.new
-    response.play(recording_url)
+    response.play(url: recording_url)
 
     render xml: response.to_s
   end

@@ -12,14 +12,16 @@ class TwilioControllerTest < ActionController::TestCase
   end
 
   test "should Say and Gather something at /conference" do
-    post :join_conference, :From => "15556505813"
-    assert response.body.include? "Gather"
-    assert response.body.include? "Say"
+    post :join_conference
+    assert response.body.include? '<Gather action="conference/connect">'
+    assert response.body.include? '<Say>Press 1 to join as a listener.</Say>'
+    assert response.body.include? '<Say>Press 2 to join as a speaker.</Say>'
+    assert response.body.include? '<Say>Press 3 to join as the moderator.</Say>'
     assert_response :success
   end
 
   test "should Join conference as listener when 1 is chosen" do
-    get :conference_connect, From: "15556505813", Digits: '1'
+    post :conference_connect, :params => { "Digits": "1" }
     assert response.body.include? 'Dial'
     assert response.body.include? 'Conference'
     assert response.body.include? 'muted="true"'
@@ -27,7 +29,7 @@ class TwilioControllerTest < ActionController::TestCase
   end
 
   test "should Join conference as speaker when 2 is chosen" do
-    get :conference_connect, From: "15556505813", Digits: '2'
+    post :conference_connect, :params => { "Digits": "2" }
     assert response.body.include? 'Dial'
     assert response.body.include? 'Conference'
     assert response.body.include? 'muted="false"'
@@ -35,10 +37,11 @@ class TwilioControllerTest < ActionController::TestCase
   end
 
   test "should Join conference as moderator when 3 is chosen" do
-    get :conference_connect, From: "15556505813", Digits: '3'
+    post :conference_connect, :params => { "Digits": "3" }
     assert response.body.include? 'Dial'
     assert response.body.include? 'Conference'
     assert response.body.include? 'startConferenceOnEnter="true"'
+    assert response.body.include? 'endconferenceOnExit="true"'
     assert_response :success
   end
 
@@ -48,10 +51,14 @@ class TwilioControllerTest < ActionController::TestCase
   end
 
   test "should Record a new message when user clicks 'Make Recording'" do
-    get :broadcast_record, From: "15556505813"
+    post :broadcast_record
     assert response.body.include? 'Say'
     assert response.body.include? 'record your message'
     assert_response :success
   end
 
+  test "should test something here" do
+    post :broadcast_play, :params => { recording_url: 'some_url' }
+    assert response.body.include? '<Play>some_url</Play>'
+  end
 end
