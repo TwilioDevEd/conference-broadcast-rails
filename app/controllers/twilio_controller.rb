@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+require 'csv'
 class TwilioController < ApplicationController
   TWILIO_API_HOST = 'https://api.twilio.com'
 

@@ -43,6 +43,8 @@ group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11.1.3'
 
+  gem 'listen'
+
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 4.0.1'
 
@@ -51,3 +53,5 @@ group :development do
 end
 
 gem 'tzinfo-data', '~> 1.2020', '>= 1.2020.1'
+
+gem "webpacker"

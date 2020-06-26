@@ -24,6 +24,7 @@ Implementations in other languages:
 
 ### Requirements
 - [Ruby](https://www.ruby-lang.org/) **2.6.x** version.
+- [Node.js](https://nodejs.org/en/) **10.x** or **12.x** version
 
 ### Twilio Account Settings
 
@@ -59,13 +60,18 @@ Before we begin, we need to collect all the config values we need to run the app
 
    See [Twilio Account Settings](#twilio-account-settings) to locate the necessary environment variables.
 
-4. Run the server, the following command will run the application on port 3000.
+4. Setup server
+   ```bash
+   make serve-setup
+   ```
+
+5. Run the server, the following command will run the application on port 3000.
 
    ```bash
    make serve
    ```
 
-5. Expose your application to the wider internet using [ngrok](http://ngrok.com). This step
+6. Expose your application to the wider internet using [ngrok](http://ngrok.com). This step
    **is important** because the application won't work as expected if you run it through
    localhost. You can read [this blog post](https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html)
    for more details on how to use ngrok.
@@ -74,14 +80,14 @@ Before we begin, we need to collect all the config values we need to run the app
    ngrok http 3000
    ```
 
-6. Once ngrok is running, open up your browser and go to your ngrok URL. It will
+7. Once ngrok is running, open up your browser and go to your ngrok URL. It will
    look something like this: 
    
    ```
    http://9a159ccf.ngrok.io
    ```
 
-7. Configure Twilio to call your webhooks You will also need to configure Twilio to call your application when calls are received.
+8. Configure Twilio to call your webhooks You will also need to configure Twilio to call your application when calls are received.
 
    You will need to provision at least one Twilio number with voice capabilities so the application's users can participate in conferences. You an buy a number right [here](https://www.twilio.com/console/phone-numbers/search). Once you have a number you need to configure your number to work with your application. Open the [number management page](https://www.twilio.com/console/phone-numbers/incoming) and open a number's configuration by clicking on it.
 
@@ -92,6 +98,8 @@ Before we begin, we need to collect all the config values we need to run the app
    ```
 
    ![](images/number_voice_url.png)
+
+9. Navigate to your `ngrok URL` for example http://9a159ccf.ngrok.io
 
 That's it!
 
