@@ -34,5 +34,5 @@
 </form>
 
 <% content_for :js do %>
-  <%= javascript_include_tag 'broadcast', 'data-turbolinks-track' => true %>
+  <%= javascript_pack_tag 'broadcast', 'data-turbolinks-track': 'reload' %>
 <% end %>
