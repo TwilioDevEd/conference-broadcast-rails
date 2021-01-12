@@ -155,7 +155,7 @@ GEM
       ffi (~> 1.0)
     rdoc (6.3.0)
     ruby2_keywords (0.0.2)
-    sanitize (5.2.2)
+    sanitize (5.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.8.0)
       nokogumbo (~> 2.0)
@@ -222,7 +222,7 @@ DEPENDENCIES
   jquery-rails (~> 4.4.0)
   listen
   rails (~> 6.1.1)
-  sanitize (~> 5.2.2)
+  sanitize (~> 5.2.3)
   sass-rails (~> 6.0.0)
   sdoc (~> 2.0.3)
   spring (~> 2.1.1)
