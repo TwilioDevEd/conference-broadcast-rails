@@ -52,6 +52,6 @@ group :development do
   gem 'spring', '~> 2.1.1'
 end
 
-gem 'tzinfo-data', '~> 1.2020'
+gem 'tzinfo-data', '~> 1.2021'
 
 gem "webpacker"
