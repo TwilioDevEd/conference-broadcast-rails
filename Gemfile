@@ -24,7 +24,7 @@ gem 'jbuilder', '~> 2.11.1'
 gem 'sdoc', '~> 2.0.3', group: :doc
 
 # Use Twilio helper library
-gem 'twilio-ruby', '~> 5.46.0'
+gem 'twilio-ruby', '~> 5.46.1'
 # Use sanitize
 gem 'sanitize', '~> 5.2.3'
 
