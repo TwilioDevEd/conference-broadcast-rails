@@ -26,7 +26,7 @@ gem 'sdoc', '~> 2.0.4', group: :doc
 # Use Twilio helper library
 gem 'twilio-ruby', '~> 5.48.0'
 # Use sanitize
-gem 'sanitize', '~> 5.2.3'
+gem 'sanitize', '~> 6.0.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
