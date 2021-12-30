@@ -1,0 +1,17 @@
+version: 2
+updates:
+- package-ecosystem: bundler
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: twilio-ruby
+    versions:
+    - 5.46.1
+    - 5.49.0
+    - 5.50.0
+    - 5.51.0
+  - dependency-name: listen
+    versions:
+    - 3.5.0
