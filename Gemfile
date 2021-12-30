@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.3'
+gem 'rails', '~> 6.1.3', '>= 6.1.3.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4.2'
 # Use SCSS for stylesheets
@@ -37,7 +37,7 @@ gem 'sanitize', '~> 5.2.3'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails', '>= 2.7.6', groups: [:development, :test]
 
 group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -54,4 +54,4 @@ end
 
 gem 'tzinfo-data', '~> 1.2021'
 
-gem "webpacker"
+gem "webpacker", ">= 5.2.1"
