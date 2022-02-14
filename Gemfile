@@ -21,7 +21,7 @@ gem 'turbolinks', '~> 5.2.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.11.2'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 2.0.4', group: :doc
+gem 'sdoc', '~> 2.3.1', group: :doc
 
 # Use Twilio helper library
 gem 'twilio-ruby', '~> 5.48.0'
