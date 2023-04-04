@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.3'
+gem 'rails', '~> 6.1.7', '>= 6.1.7.3'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4.2'
 # Use SCSS for stylesheets
@@ -26,7 +26,7 @@ gem 'sdoc', '~> 2.0.4', group: :doc
 # Use Twilio helper library
 gem 'twilio-ruby', '~> 5.48.0'
 # Use sanitize
-gem 'sanitize', '~> 5.2.3'
+gem 'sanitize', '~> 6.0.1'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
