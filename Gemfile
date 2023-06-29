@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.3'
+gem 'rails', '~> 6.1.7', '>= 6.1.7.4'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4.2'
 # Use SCSS for stylesheets
@@ -15,7 +15,7 @@ gem 'coffee-rails', '~> 5.0.0'
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails', '~> 4.4.0'
+gem 'jquery-rails', '~> 4.5.0'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks', '~> 5.2.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -37,7 +37,7 @@ gem 'sanitize', '~> 5.2.3'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails', '>= 2.8.0', groups: [:development, :test]
 
 group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -46,7 +46,7 @@ group :development do
   gem 'listen'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 4.1.0'
+  gem 'web-console', '~> 4.2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring', '~> 2.1.1'
@@ -54,4 +54,4 @@ end
 
 gem 'tzinfo-data', '~> 1.2021'
 
-gem "webpacker"
+gem "webpacker", ">= 5.2.2"
